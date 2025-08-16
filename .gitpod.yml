@@ -1,0 +1,27 @@
+tasks:
+  - name: Setup Java 21 and Build Spring Boot HATEOAS API
+    init: |
+      # Install Java 21 via SDKMAN (automated)
+      echo "Y" | sdk install java 21.0.1-tem
+      sdk default java 21.0.1-tem
+      
+      # Verify setup
+      java -version
+      mvn -version
+      
+      # Build the project
+      mvn clean install
+    command: |
+      # Run Spring Boot application with dev profile
+      mvn spring-boot:run -Dspring-boot.run.profiles=dev
+ports:
+  - port: 8080
+    onOpen: open-preview
+vscode:
+  extensions:
+    - vscjava.vscode-spring-boot
+    - vscjava.vscode-maven
+    - redhat.java
+    - Pivotal.vscode-spring-boot
+    - eamodio.gitlens
+    - humao.rest-client
